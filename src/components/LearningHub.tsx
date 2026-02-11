@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { motion } from "framer-motion";
 import { Tweet } from "react-tweet";
+import { ExternalLink, FileText } from "lucide-react";
 
 const categories = [
   { label: "All Posts", emoji: "📋" },
@@ -10,13 +11,27 @@ const categories = [
   { label: "Sustainability", emoji: "🌱" },
 ];
 
-const posts = [
-  { id: "2021262642657263695", category: "Crypto" },
-  { id: "2019274022643589629", category: "Education" },
-  { id: "2018925716985749648", category: "AI Building" },
-  { id: "2017742613315285069", category: "Sustainability" },
-  { id: "2016994399222325389", category: "Education" },
-  { id: "2016414469476421702", category: "Crypto" },
+type Post = {
+  id: string;
+  category: string;
+  type: "tweet" | "article";
+  title?: string;
+  description?: string;
+};
+
+const posts: Post[] = [
+  {
+    id: "2021262642657263695",
+    category: "Crypto",
+    type: "article",
+    title: "Crypto Insights by MOMO",
+    description: "Deep dive into the latest crypto trends and blockchain education.",
+  },
+  { id: "2019274022643589629", category: "Education", type: "tweet" },
+  { id: "2018925716985749648", category: "AI Building", type: "tweet" },
+  { id: "2017742613315285069", category: "Sustainability", type: "tweet" },
+  { id: "2016994399222325389", category: "Education", type: "tweet" },
+  { id: "2016414469476421702", category: "Crypto", type: "tweet" },
 ];
 
 const LearningHub = () => {
@@ -68,7 +83,32 @@ const LearningHub = () => {
               transition={{ delay: i * 0.08 }}
               className="[&_.react-tweet-theme]:!m-0 [&_.react-tweet-theme]:!w-full"
             >
-              <Tweet id={post.id} />
+              {post.type === "article" ? (
+                <a
+                  href={`https://x.com/momobsc_/status/${post.id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block h-full"
+                >
+                  <div className="bg-card rounded-2xl border border-border p-6 shadow-card hover:shadow-lg transition-shadow h-full flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center gap-2 text-muted-foreground text-xs font-semibold mb-3">
+                        <FileText className="w-4 h-4" />
+                        X Article
+                      </div>
+                      <h3 className="font-display text-lg font-bold text-navy mb-2">{post.title}</h3>
+                      <p className="text-muted-foreground text-sm leading-relaxed">{post.description}</p>
+                    </div>
+                    <div className="mt-4 flex items-center gap-1 text-primary text-sm font-medium">
+                      Read on X <ExternalLink className="w-3.5 h-3.5" />
+                    </div>
+                  </div>
+                </a>
+              ) : (
+                <Suspense fallback={<div className="bg-card rounded-2xl border border-border p-6 h-40 animate-pulse" />}>
+                  <Tweet id={post.id} />
+                </Suspense>
+              )}
             </motion.div>
           ))}
         </div>
