@@ -107,7 +107,7 @@ const AiChat = () => {
           initial={{ y: 30, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true }}
-          className="max-w-2xl mx-auto bg-card rounded-2xl border border-border shadow-card overflow-hidden"
+          className="max-w-3xl mx-auto bg-card rounded-2xl border border-border shadow-card overflow-hidden"
         >
           {/* Chat header */}
           <div className="bg-gradient-hero px-6 py-4 flex items-center gap-3">
