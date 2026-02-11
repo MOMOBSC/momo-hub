@@ -136,17 +136,17 @@ const AiChat = () => {
                 {msg.role === "assistant" && (
                   <img src={momoAvatar} alt="MOMO" className="w-7 h-7 rounded-full flex-shrink-0 mt-1 ring-1 ring-border" />
                 )}
-                <div className="flex flex-col gap-1">
+                <div className={`flex flex-col gap-1 ${msg.role === "user" ? "items-end" : ""} min-w-0 flex-1`}>
                   <div
-                    className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm leading-relaxed whitespace-pre-line ${
+                    className={`rounded-2xl px-4 py-3 text-sm leading-relaxed whitespace-pre-line ${
                       msg.role === "user"
-                        ? "bg-gradient-hero text-primary-foreground rounded-tr-md ml-auto"
-                        : "bg-card border border-border text-foreground rounded-tl-md"
+                        ? "bg-gradient-hero text-primary-foreground rounded-tr-md max-w-[85%]"
+                        : "bg-card border border-border text-foreground rounded-tl-md max-w-full"
                     }`}
                   >
                     {msg.content}
                   </div>
-                  <span className={`text-[10px] text-muted-foreground/60 px-1 ${msg.role === "user" ? "text-right" : ""}`}>
+                  <span className={`text-[10px] text-muted-foreground/60 px-1`}>
                     {relativeTime(msg.time)}
                   </span>
                 </div>
@@ -201,7 +201,7 @@ const AiChat = () => {
                 exit={{ height: 0, opacity: 0 }}
                 className="overflow-hidden border-t border-border bg-background"
               >
-                <div className="px-5 py-3 flex gap-2 overflow-x-auto scrollbar-hide">
+                <div className="px-5 py-3 flex flex-wrap gap-2">
                   {visibleSuggestions.map((s) => {
                     const Icon = s.icon;
                     return (
