@@ -84,26 +84,16 @@ const LearningHub = () => {
               className="[&_.react-tweet-theme]:!m-0 [&_.react-tweet-theme]:!w-full"
             >
               {post.type === "article" ? (
-                <a
-                  href={`https://x.com/momobsc_/status/${post.id}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block h-full"
-                >
-                  <div className="bg-card rounded-2xl border border-border p-6 shadow-card hover:shadow-lg transition-shadow h-full flex flex-col justify-between">
-                    <div>
-                      <div className="flex items-center gap-2 text-muted-foreground text-xs font-semibold mb-3">
-                        <FileText className="w-4 h-4" />
-                        X Article
-                      </div>
-                      <h3 className="font-display text-lg font-bold text-navy mb-2">{post.title}</h3>
-                      <p className="text-muted-foreground text-sm leading-relaxed">{post.description}</p>
-                    </div>
-                    <div className="mt-4 flex items-center gap-1 text-primary text-sm font-medium">
-                      Read on X <ExternalLink className="w-3.5 h-3.5" />
-                    </div>
-                  </div>
-                </a>
+                <div className="rounded-2xl overflow-hidden border border-border shadow-card bg-card">
+                  <iframe
+                    src={`https://platform.twitter.com/embed/Tweet.html?id=${post.id}&theme=light`}
+                    className="w-full border-0"
+                    style={{ minHeight: 400 }}
+                    allowFullScreen
+                    loading="lazy"
+                    title={post.title || "X Article"}
+                  />
+                </div>
               ) : (
                 <Suspense fallback={<div className="bg-card rounded-2xl border border-border p-6 h-40 animate-pulse" />}>
                   <Tweet id={post.id} />
