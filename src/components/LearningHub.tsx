@@ -86,10 +86,10 @@ type Post = {
 
 const posts: Post[] = [
   {
-    id: "2021249135714902016",
+    id: "2021262642657263695",
     category: "Crypto",
     type: "article",
-    url: "https://x.com/i/article/2021249135714902016",
+    url: "https://x.com/momobsc_/article/2021262642657263695",
     title: "Crypto Insights by MOMO",
     description: "Deep dive into the latest crypto trends and blockchain education.",
   },
