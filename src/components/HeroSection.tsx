@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import momoAvatar from "@/assets/momo-avatar.jpg";
-import momoBanner from "@/assets/momo-banner.jpeg";
+
 
 const HeroSection = () => {
   const scrollTo = (id: string) => {
@@ -8,15 +8,9 @@ const HeroSection = () => {
   };
 
   return (
-    <section id="hero" className="relative overflow-hidden">
-      {/* Banner */}
-      <div className="relative w-full h-[220px] md:h-[320px]">
-        <img src={momoBanner} alt="Education for the next generation" className="w-full h-full object-cover object-center" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background" />
-      </div>
-
+    <section id="hero" className="relative overflow-hidden pt-10">
       {/* Content */}
-      <div className="container mx-auto px-4 -mt-16 relative z-10">
+      <div className="container mx-auto px-4 relative z-10">
         <div className="flex flex-col md:flex-row items-start gap-6 md:gap-10">
           <motion.img
             initial={{ scale: 0.8, opacity: 0 }}
