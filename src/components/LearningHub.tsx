@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Tweet } from "react-tweet";
 import { ExternalLink, FileText } from "lucide-react";
 
-const TwitterEmbed = ({ id }: { id: string }) => {
+const TwitterEmbed = ({ url }: { url: string }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [failed, setFailed] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -12,37 +12,39 @@ const TwitterEmbed = ({ id }: { id: string }) => {
     const container = containerRef.current;
     if (!container) return;
 
-    const render = () => {
-      if (!(window as any).twttr?.widgets) return;
-      container.innerHTML = "";
-      (window as any).twttr.widgets
-        .createTweet(id, container, { theme: "light", conversation: "none" })
-        .then((el: any) => {
-          setLoading(false);
-          if (!el) setFailed(true);
-        })
-        .catch(() => {
-          setLoading(false);
-          setFailed(true);
-        });
+    const loadAndRender = () => {
+      const twttr = (window as any).twttr;
+      if (!twttr?.widgets) return;
+      // Insert a blockquote that widgets.js will convert into an embed
+      container.innerHTML = `<blockquote class="twitter-tweet"><a href="${url}"></a></blockquote>`;
+      twttr.widgets.load(container).then(() => {
+        setLoading(false);
+        // If no iframe was created, embed failed
+        if (!container.querySelector("iframe")) setFailed(true);
+      });
     };
 
     if ((window as any).twttr?.widgets) {
-      render();
+      loadAndRender();
     } else {
+      const existing = document.querySelector('script[src="https://platform.twitter.com/widgets.js"]');
+      if (existing) {
+        existing.addEventListener("load", loadAndRender);
+        return;
+      }
       const script = document.createElement("script");
       script.src = "https://platform.twitter.com/widgets.js";
       script.async = true;
-      script.onload = render;
+      script.onload = loadAndRender;
       script.onerror = () => { setLoading(false); setFailed(true); };
       document.head.appendChild(script);
     }
-  }, [id]);
+  }, [url]);
 
   if (failed) {
     return (
       <a
-        href={`https://x.com/momobsc_/status/${id}`}
+        href={url}
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center gap-3 rounded-2xl border border-border bg-card p-6 shadow-card hover:shadow-lg transition-shadow"
@@ -60,7 +62,7 @@ const TwitterEmbed = ({ id }: { id: string }) => {
   return (
     <div>
       {loading && <div className="bg-card rounded-2xl border border-border p-6 h-40 animate-pulse" />}
-      <div ref={containerRef} className="[&>div]:!m-0 [&>div]:!w-full" />
+      <div ref={containerRef} className="[&>div]:!m-0 [&>div]:!w-full [&_.twitter-tweet]:!m-0" />
     </div>
   );
 };
@@ -77,15 +79,17 @@ type Post = {
   id: string;
   category: string;
   type: "tweet" | "article";
+  url?: string; // for articles
   title?: string;
   description?: string;
 };
 
 const posts: Post[] = [
   {
-    id: "2021262642657263695",
+    id: "2021249135714902016",
     category: "Crypto",
     type: "article",
+    url: "https://x.com/i/article/2021249135714902016",
     title: "Crypto Insights by MOMO",
     description: "Deep dive into the latest crypto trends and blockchain education.",
   },
@@ -145,8 +149,8 @@ const LearningHub = () => {
               transition={{ delay: i * 0.08 }}
               className="[&_.react-tweet-theme]:!m-0 [&_.react-tweet-theme]:!w-full"
             >
-              {post.type === "article" ? (
-                <TwitterEmbed id={post.id} />
+              {post.type === "article" && post.url ? (
+                <TwitterEmbed url={post.url} />
               ) : (
                 <Suspense fallback={<div className="bg-card rounded-2xl border border-border p-6 h-40 animate-pulse" />}>
                   <Tweet id={post.id} />
