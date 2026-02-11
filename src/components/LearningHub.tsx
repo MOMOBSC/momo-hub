@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ExternalLink, Heart, MessageCircle, Repeat2 } from "lucide-react";
-import { Tweet } from "react-tweet";
 
 const categories = [
   { label: "All Posts", emoji: "📋" },
@@ -105,16 +104,6 @@ const LearningHub = () => {
             </button>
           ))}
         </div>
-
-        {/* Featured Embedded Tweet */}
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          viewport={{ once: true }}
-          className="mb-10 flex justify-center [&_>_div]:max-w-lg [&_>_div]:w-full"
-        >
-          <Tweet id="2021262642657263695" />
-        </motion.div>
 
         {/* Posts Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
