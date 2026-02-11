@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, ArrowRight } from "lucide-react";
 
 const resources = [
   {
@@ -26,7 +26,7 @@ const resources = [
 ];
 
 const Resources = () => (
-  <section id="resources" className="py-20 bg-gradient-sky">
+  <section id="resources" className="py-20 bg-gradient-card">
     <div className="container mx-auto px-4">
       <motion.div
         initial={{ y: 20, opacity: 0 }}
@@ -53,13 +53,16 @@ const Resources = () => (
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.1 }}
-            className={`group bg-gradient-to-b ${r.color} bg-card rounded-2xl border border-border p-8 text-center shadow-card hover:shadow-card-hover transition-all hover:-translate-y-1`}
+            className={`group bg-gradient-to-b ${r.color} bg-card rounded-2xl border border-border p-8 text-center shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1.5`}
           >
-            <div className="text-4xl mb-4">{r.emoji}</div>
+            <div className="text-5xl mb-5 group-hover:scale-110 transition-transform duration-300">
+              {r.emoji}
+            </div>
             <h3 className="font-display font-semibold text-lg text-navy mb-2">{r.title}</h3>
             <p className="text-muted-foreground text-sm leading-relaxed mb-5">{r.desc}</p>
             <span className="inline-flex items-center gap-1.5 text-sm font-medium text-sky group-hover:text-verified transition-colors">
-              Explore <ExternalLink className="w-3.5 h-3.5" />
+              Explore
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" />
             </span>
           </motion.a>
         ))}
