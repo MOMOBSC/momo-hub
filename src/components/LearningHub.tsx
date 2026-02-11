@@ -69,7 +69,7 @@ const LearningHub = () => {
               transition={{ delay: i * 0.08 }}
               className="group rounded-2xl border border-border bg-card overflow-hidden shadow-card hover:shadow-lg hover:scale-[1.02] transition-all duration-300"
             >
-              <div className="aspect-video overflow-hidden">
+              <div className="overflow-hidden" style={{ aspectRatio: '5/3' }}>
                 <img
                   src={item.media_cover_url}
                   alt={item.title}
