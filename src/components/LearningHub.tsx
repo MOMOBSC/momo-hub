@@ -46,7 +46,7 @@ const LearningHub = () => {
           {isLoading &&
             Array.from({ length: 3 }).map((_, i) => (
               <div key={i} className="rounded-2xl border border-border bg-card overflow-hidden">
-                <Skeleton className="w-full" style={{ aspectRatio: "5/3" }} />
+                <Skeleton className="w-full" style={{ aspectRatio: "5/2" }} />
                 <div className="p-5">
                   <Skeleton className="h-5 w-3/4" />
                 </div>
@@ -73,7 +73,7 @@ const LearningHub = () => {
               transition={{ delay: i * 0.08 }}
               className="group rounded-2xl border border-border bg-card overflow-hidden shadow-card hover:shadow-card-hover hover:scale-[1.03] transition-all duration-300 flex flex-col"
             >
-              <div className="overflow-hidden" style={{ aspectRatio: "5/3" }}>
+              <div className="overflow-hidden" style={{ aspectRatio: "5/2" }}>
                 <img
                   src={item.media_cover_url}
                   alt={item.title}
