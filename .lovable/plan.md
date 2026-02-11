@@ -1,25 +1,57 @@
 
+## Custom Discovery Section
 
-## Vấn đề
+Thay thế Learning Hub hiện tại bằng một section "Discovery" đơn giản, lấy dữ liệu từ Supabase database.
 
-X Article không hiển thị đúng qua iframe embed - chỉ hiện link `x.com/i/article/2021...` thay vì cover image và title đầy đủ. Đây là hạn chế của Twitter embed khi xử lý Articles.
+### 1. Setup Lovable Cloud + Supabase
 
-## Giải pháp
+- Kích hoạt Lovable Cloud để có database
+- Tạo bảng `discoveries` với các cột:
+  - `id` (uuid, primary key)
+  - `title` (text)
+  - `media_cover_url` (text) - URL ảnh cover
+  - `link_x` (text) - Link bài viết trên X
+  - `created_at` (timestamptz)
+- RLS policy: cho phép public SELECT (read-only)
 
-Sử dụng **Twitter Widgets.js** (`https://platform.twitter.com/widgets.js`) để render embed chính thức. Cách này load script Twitter và gọi `twttr.widgets.createTweet()` để render tweet/article đúng cách trong một div.
+### 2. UI Changes - LearningHub.tsx
 
-## Chi tiết kỹ thuật
+- Xoa hoàn toàn phần category filters (Education, Crypto, AI Building, Sustainability)
+- Xoá component `TwitterEmbed` vì không cần nữa
+- Đổi tiêu đề thành "Discovery" (không có label phụ)
+- Render **card grid** lấy data từ Supabase:
+  - Mỗi card: ảnh cover lớn phía trên, title bên dưới
+  - Click vào card mở `link_x` trong tab mới
+  - Hover effect với shadow/scale nhẹ
+- Giữ lại phần quote "MOMO's Wisdom" ở cuối
 
-**File sửa:** `src/components/LearningHub.tsx`
+### 3. Data Flow
 
-1. **Tạo component `TwitterEmbed`** sử dụng `useEffect` + `useRef`:
-   - Load script `https://platform.twitter.com/widgets.js` một lần
-   - Gọi `window.twttr.widgets.createTweet(id, containerRef)` để render
-   - Hiển thị loading skeleton trong khi chờ load
+- Dùng `@tanstack/react-query` (đã cài) để fetch data từ Supabase
+- Query: `supabase.from('discoveries').select('*').order('created_at', { ascending: false })`
+- Loading state với skeleton cards
+- Empty state nếu chưa có data
 
-2. **Dùng `TwitterEmbed` cho articles** thay vì iframe:
-   - Articles: dùng `TwitterEmbed` component mới
-   - Tweets thường: giữ nguyên `react-tweet` component
+### Technical Details
 
-3. **Fallback**: Nếu embed thất bại, hiển thị card với link "Read on X"
+**Migration SQL:**
+```sql
+CREATE TABLE public.discoveries (
+  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  title text NOT NULL,
+  media_cover_url text NOT NULL,
+  link_x text NOT NULL,
+  created_at timestamptz DEFAULT now()
+);
 
+ALTER TABLE public.discoveries ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Allow public read" ON public.discoveries
+  FOR SELECT USING (true);
+```
+
+**Files to modify:**
+- `src/components/LearningHub.tsx` - rewrite UI, remove filters/TwitterEmbed, fetch from DB
+- `src/integrations/supabase/` - auto-generated types after migration
+
+**Seed data** (insert tool): Thêm bài article đầu tiên với title "Crypto Insights by MOMO", media_cover_url (bạn cung cấp URL ảnh), và link_x `https://x.com/momobsc_/article/2021262642657263695`
