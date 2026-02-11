@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, BookOpen } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -32,28 +32,32 @@ const LearningHub = () => {
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true }}
-          className="text-center mb-10"
+          className="text-center mb-12"
         >
           <h2 className="font-display text-3xl md:text-4xl font-bold text-navy">
             📚 Discovery
           </h2>
+          <p className="mt-3 text-muted-foreground text-base md:text-lg">
+            Curated insights from the MOMO community
+          </p>
         </motion.div>
 
-        {/* Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {isLoading &&
             Array.from({ length: 3 }).map((_, i) => (
               <div key={i} className="rounded-2xl border border-border bg-card overflow-hidden">
-                <Skeleton className="w-full aspect-video" />
-                <div className="p-4">
+                <Skeleton className="w-full" style={{ aspectRatio: "5/3" }} />
+                <div className="p-5">
                   <Skeleton className="h-5 w-3/4" />
                 </div>
               </div>
             ))}
 
           {!isLoading && discoveries?.length === 0 && (
-            <div className="col-span-full text-center py-12 text-muted-foreground">
-              No discoveries yet — stay tuned!
+            <div className="col-span-full flex flex-col items-center py-16 text-muted-foreground">
+              <BookOpen className="w-12 h-12 mb-4 opacity-40" />
+              <p className="text-base font-medium">No discoveries yet</p>
+              <p className="text-sm mt-1">Stay tuned for curated content!</p>
             </div>
           )}
 
@@ -67,27 +71,26 @@ const LearningHub = () => {
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08 }}
-              className="group rounded-2xl border border-border bg-card overflow-hidden shadow-card hover:shadow-lg hover:scale-[1.02] transition-all duration-300"
+              className="group rounded-2xl border border-border bg-card overflow-hidden shadow-card hover:shadow-card-hover hover:scale-[1.03] transition-all duration-300 flex flex-col"
             >
-              <div className="overflow-hidden" style={{ aspectRatio: '5/3' }}>
+              <div className="overflow-hidden" style={{ aspectRatio: "5/3" }}>
                 <img
                   src={item.media_cover_url}
                   alt={item.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   loading="lazy"
                 />
               </div>
-              <div className="p-4 flex items-center justify-between gap-2">
+              <div className="p-5 flex items-center justify-between gap-2 flex-1">
                 <h3 className="font-semibold text-navy text-sm md:text-base line-clamp-2">
                   {item.title}
                 </h3>
-                <ExternalLink className="w-4 h-4 text-muted-foreground shrink-0" />
+                <ExternalLink className="w-4 h-4 text-muted-foreground shrink-0 group-hover:text-verified transition-colors" />
               </div>
             </motion.a>
           ))}
         </div>
 
-        {/* Quote */}
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
