@@ -1,7 +1,69 @@
-import { useState, Suspense } from "react";
+import { useState, Suspense, useEffect, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Tweet } from "react-tweet";
 import { ExternalLink, FileText } from "lucide-react";
+
+const TwitterEmbed = ({ id }: { id: string }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [failed, setFailed] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const render = () => {
+      if (!(window as any).twttr?.widgets) return;
+      container.innerHTML = "";
+      (window as any).twttr.widgets
+        .createTweet(id, container, { theme: "light", conversation: "none" })
+        .then((el: any) => {
+          setLoading(false);
+          if (!el) setFailed(true);
+        })
+        .catch(() => {
+          setLoading(false);
+          setFailed(true);
+        });
+    };
+
+    if ((window as any).twttr?.widgets) {
+      render();
+    } else {
+      const script = document.createElement("script");
+      script.src = "https://platform.twitter.com/widgets.js";
+      script.async = true;
+      script.onload = render;
+      script.onerror = () => { setLoading(false); setFailed(true); };
+      document.head.appendChild(script);
+    }
+  }, [id]);
+
+  if (failed) {
+    return (
+      <a
+        href={`https://x.com/momobsc_/status/${id}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-3 rounded-2xl border border-border bg-card p-6 shadow-card hover:shadow-lg transition-shadow"
+      >
+        <FileText className="w-8 h-8 text-primary shrink-0" />
+        <div className="flex-1">
+          <p className="font-semibold text-navy">X Article</p>
+          <p className="text-sm text-muted-foreground">Read on X →</p>
+        </div>
+        <ExternalLink className="w-5 h-5 text-muted-foreground" />
+      </a>
+    );
+  }
+
+  return (
+    <div>
+      {loading && <div className="bg-card rounded-2xl border border-border p-6 h-40 animate-pulse" />}
+      <div ref={containerRef} className="[&>div]:!m-0 [&>div]:!w-full" />
+    </div>
+  );
+};
 
 const categories = [
   { label: "All Posts", emoji: "📋" },
@@ -84,16 +146,7 @@ const LearningHub = () => {
               className="[&_.react-tweet-theme]:!m-0 [&_.react-tweet-theme]:!w-full"
             >
               {post.type === "article" ? (
-                <div className="rounded-2xl overflow-hidden border border-border shadow-card bg-card">
-                  <iframe
-                    src={`https://platform.twitter.com/embed/Tweet.html?id=${post.id}&theme=light`}
-                    className="w-full border-0"
-                    style={{ minHeight: 400 }}
-                    allowFullScreen
-                    loading="lazy"
-                    title={post.title || "X Article"}
-                  />
-                </div>
+                <TwitterEmbed id={post.id} />
               ) : (
                 <Suspense fallback={<div className="bg-card rounded-2xl border border-border p-6 h-40 animate-pulse" />}>
                   <Tweet id={post.id} />
