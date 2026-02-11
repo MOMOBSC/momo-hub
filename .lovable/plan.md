@@ -1,57 +1,67 @@
 
-## Custom Discovery Section
 
-Thay thế Learning Hub hiện tại bằng một section "Discovery" đơn giản, lấy dữ liệu từ Supabase database.
+## UI/UX Optimization Plan
 
-### 1. Setup Lovable Cloud + Supabase
+A comprehensive pass across all sections to improve visual polish, spacing, mobile responsiveness, and the MOMO AI Chat experience.
 
-- Kích hoạt Lovable Cloud để có database
-- Tạo bảng `discoveries` với các cột:
-  - `id` (uuid, primary key)
-  - `title` (text)
-  - `media_cover_url` (text) - URL ảnh cover
-  - `link_x` (text) - Link bài viết trên X
-  - `created_at` (timestamptz)
-- RLS policy: cho phép public SELECT (read-only)
+---
 
-### 2. UI Changes - LearningHub.tsx
+### 1. Header Improvements
+- Update nav item "Learning Hub" to "Discovery" to match the renamed section
+- Add subtle active-state indicator when scrolling to each section
+- Improve mobile menu spacing and add dividers between items
 
-- Xoa hoàn toàn phần category filters (Education, Crypto, AI Building, Sustainability)
-- Xoá component `TwitterEmbed` vì không cần nữa
-- Đổi tiêu đề thành "Discovery" (không có label phụ)
-- Render **card grid** lấy data từ Supabase:
-  - Mỗi card: ảnh cover lớn phía trên, title bên dưới
-  - Click vào card mở `link_x` trong tab mới
-  - Hover effect với shadow/scale nhẹ
-- Giữ lại phần quote "MOMO's Wisdom" ở cuối
+### 2. Hero Section Polish
+- Add more vertical breathing room (increase top/bottom padding)
+- Improve the stats/tagline spacing on mobile so text doesn't feel cramped
+- Make CTA buttons slightly larger on mobile for better tap targets
 
-### 3. Data Flow
+### 3. Discovery Section Tweaks
+- Add a subtle subtitle under "Discovery" heading (e.g., "Curated insights from the MOMO community")
+- Improve card hover animation with a smoother scale + shadow transition
+- Better empty state with an icon illustration instead of plain text
+- Ensure consistent card height across grid items
 
-- Dùng `@tanstack/react-query` (đã cài) để fetch data từ Supabase
-- Query: `supabase.from('discoveries').select('*').order('created_at', { ascending: false })`
-- Loading state với skeleton cards
-- Empty state nếu chưa có data
+### 4. MOMO AI Chat - Major UX Upgrade
+This is the biggest improvement area:
+
+- **Chat bubble styling**: Add subtle rounded corners differentiation - user bubbles get a small tail/notch effect, assistant bubbles get the avatar closer
+- **Message timestamps**: Show relative time (e.g., "just now") under each message
+- **Improved typing indicator**: Make the bouncing dots smoother with a subtle fade-in container
+- **Better suggestion chips**: Style them as pill buttons with icons, and hide them after first use or when typing
+- **Input field improvements**: 
+  - Add a subtle border glow when focused
+  - Disable send button when input is empty (visual feedback)
+  - Make the input area sticky and more prominent
+- **Welcome message formatting**: Use a cleaner layout with inline badges/tags instead of bullet points
+- **Responsive fixes**: 
+  - Reduce chat height on mobile from 380px to auto/viewport-aware
+  - Make suggestion chips horizontally scrollable on mobile instead of wrapping
+  - Larger touch targets for send button on mobile
+- **Auto-scroll behavior**: Add a "scroll to bottom" button when user scrolls up in chat history
+
+### 5. Resources Section
+- Add subtle gradient background variation to differentiate from Discovery section
+- Improve card icon size and spacing
+- Add hover arrow animation on "Explore" links
+
+### 6. Footer
+- Add social media icons (X/Twitter icon) instead of plain text links
+- Improve spacing between sections
+- Add a "Back to top" button
+
+---
 
 ### Technical Details
 
-**Migration SQL:**
-```sql
-CREATE TABLE public.discoveries (
-  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-  title text NOT NULL,
-  media_cover_url text NOT NULL,
-  link_x text NOT NULL,
-  created_at timestamptz DEFAULT now()
-);
-
-ALTER TABLE public.discoveries ENABLE ROW LEVEL SECURITY;
-
-CREATE POLICY "Allow public read" ON public.discoveries
-  FOR SELECT USING (true);
-```
-
 **Files to modify:**
-- `src/components/LearningHub.tsx` - rewrite UI, remove filters/TwitterEmbed, fetch from DB
-- `src/integrations/supabase/` - auto-generated types after migration
+- `src/components/Header.tsx` - Update nav labels, add scroll spy
+- `src/components/HeroSection.tsx` - Spacing and mobile CTA improvements  
+- `src/components/LearningHub.tsx` - Subtitle, card polish, empty state
+- `src/components/AiChat.tsx` - Major UX overhaul (timestamps, suggestion behavior, input UX, responsive chat height, scroll-to-bottom button)
+- `src/components/Resources.tsx` - Hover animations, visual polish
+- `src/components/Footer.tsx` - Icons, back-to-top button
+- `src/index.css` - Any new utility classes needed
 
-**Seed data** (insert tool): Thêm bài article đầu tiên với title "Crypto Insights by MOMO", media_cover_url (bạn cung cấp URL ảnh), và link_x `https://x.com/momobsc_/article/2021262642657263695`
+**No new dependencies required** - all improvements use existing Tailwind, Framer Motion, and Lucide icons.
+
