@@ -1,73 +1,135 @@
-# Welcome to your Lovable project
+<p align="center">
+  <img src="src/assets/momo-avatar.jpg" alt="MOMO Hub Logo" width="120" style="border-radius: 50%;" />
+</p>
 
-## Project info
+<h1 align="center">🐵 MOMO Hub — Education for the Next Generation</h1>
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+<p align="center">
+  <strong>A community-driven dApp built on BNB Chain</strong><br/>
+  Empowering learners worldwide through Crypto, AI, Technology & Sustainable Development education.
+</p>
 
-## How can I edit this code?
+<p align="center">
+  <a href="https://momobsc.chat">🌐 Official Website</a> •
+  <a href="https://x.com/momobsc_">𝕏 Twitter/X</a> •
+  <a href="https://www.bnbchain.org">⛓️ BNB Chain</a> •
+  <a href="https://giggle.academy">🎓 Giggle Academy</a>
+</p>
 
-There are several ways of editing your application.
+<p align="center">
+  <img src="https://img.shields.io/badge/Built%20on-BNB%20Chain-F0B90B?style=for-the-badge&logo=binance&logoColor=white" />
+  <img src="https://img.shields.io/badge/Framework-React%20%2B%20Vite-61DAFB?style=for-the-badge&logo=react&logoColor=white" />
+  <img src="https://img.shields.io/badge/AI-Gemini%20Powered-4285F4?style=for-the-badge&logo=google&logoColor=white" />
+  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" />
+</p>
 
-**Use Lovable**
+---
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## 🚀 What is MOMO Hub?
 
-Changes made via Lovable will be committed automatically to this repo.
+**MOMO Hub** is an open, educational dApp built on **BNB Chain** by the **@momobsc_** community. Our mission is to make blockchain education accessible, fun, and impactful — aligned with [CZ's vision](https://giggle.academy) for free education worldwide.
 
-**Use your preferred IDE**
+### 🎯 Core Features
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+| Feature | Description |
+|---------|-------------|
+| 🤖 **MOMO AI Chat** | AI-powered assistant (Gemini 3 Flash) — ask anything about Binance, BNB Chain, Giggle Academy, and sustainable crypto |
+| 📰 **Discovery Feed** | Curated content feed with the latest insights on Crypto, AI, Technology & Sustainability |
+| 📚 **Learning Resources** | Direct links to Binance Academy, BNB Chain docs, Giggle Academy, and community resources |
+| 🌱 **Sustainability Focus** | Education on responsible crypto and sustainable development goals |
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+---
 
-Follow these steps:
+## 🏗️ Built on BNB Chain Ecosystem
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+MOMO Hub is proudly built within the **BNB Chain ecosystem**, contributing to the growth of Web3 education:
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+- **🔗 BNB Chain** — The blockchain infrastructure powering our dApp
+- **💰 Binance** — Exchange ecosystem knowledge & SAFU principles
+- **🎓 Giggle Academy** — CZ's free education platform integration
+- **🌍 Community-driven** — Open-source, built by learners for learners
 
-# Step 3: Install the necessary dependencies.
-npm i
+---
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+## 🛠️ Tech Stack
+
+| Technology | Purpose |
+|-----------|---------|
+| **React 18** + **TypeScript** | Frontend framework |
+| **Vite** | Build tool & dev server |
+| **Tailwind CSS** | Utility-first styling |
+| **shadcn/ui** | Component library |
+| **Framer Motion** | Animations & transitions |
+| **Supabase** | Backend, database & edge functions |
+| **Lovable AI (Gemini 3 Flash)** | AI chat assistant |
+
+---
+
+## 📦 Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) v18+ (recommend using [nvm](https://github.com/nvm-sh/nvm))
+- npm or [bun](https://bun.sh/)
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/your-org/momo-hub.git
+
+# Navigate to the project
+cd momo-hub
+
+# Install dependencies
+npm install
+
+# Start the development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The app will be available at `http://localhost:5173`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+---
 
-**Use GitHub Codespaces**
+## 🌐 Live Demo
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+👉 **[momobsc.chat](https://momobsc.chat)** — Try MOMO Hub now!
 
-## What technologies are used for this project?
+---
 
-This project is built with:
+## 🤝 Contributing
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+We welcome contributions from the community! Whether it's:
 
-## How can I deploy this project?
+- 🐛 Bug reports & fixes
+- ✨ New feature suggestions
+- 📝 Documentation improvements
+- 🌍 Translations
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+Feel free to open an issue or submit a pull request.
 
-## Can I connect a custom domain to my Lovable project?
+---
 
-Yes, you can!
+## 📜 License
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+This project is open-source and available under the [MIT License](LICENSE).
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+---
+
+## 🔗 Links & Resources
+
+| Resource | Link |
+|----------|------|
+| 🌐 Official Website | [momobsc.chat](https://momobsc.chat) |
+| 𝕏 Twitter/X | [@momobsc_](https://x.com/momobsc_) |
+| ⛓️ BNB Chain | [bnbchain.org](https://www.bnbchain.org) |
+| 🎓 Giggle Academy | [giggle.academy](https://giggle.academy) |
+| 📚 Binance Academy | [academy.binance.com](https://academy.binance.com) |
+
+---
+
+<p align="center">
+  Made with 💛 by the <strong>MOMO Community</strong> on <strong>BNB Chain</strong><br/>
+  <em>Keep learning! 📚✨</em>
+</p>
