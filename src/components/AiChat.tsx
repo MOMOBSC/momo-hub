@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Send, ChevronDown, Sparkles, BookOpen, TrendingUp, Leaf } from "lucide-react";
+import ReactMarkdown from "react-markdown";
 import { toast } from "sonner";
 import momoAvatar from "@/assets/momo-avatar.jpg";
 
@@ -233,7 +234,13 @@ const AiChat = () => {
                         : "bg-card border border-border text-foreground rounded-tl-md max-w-full"
                     }`}
                   >
-                    {msg.content}
+                    {msg.role === "assistant" ? (
+                      <div className="prose prose-sm prose-invert max-w-none [&>p]:my-1 [&>ul]:my-1 [&>ol]:my-1 [&>h1]:text-base [&>h2]:text-sm [&>h3]:text-sm [&_a]:text-primary [&_a]:underline">
+                        <ReactMarkdown>{msg.content}</ReactMarkdown>
+                      </div>
+                    ) : (
+                      msg.content
+                    )}
                   </div>
                   <span className="text-[10px] text-muted-foreground/60 px-1">
                     {relativeTime(msg.time)}
