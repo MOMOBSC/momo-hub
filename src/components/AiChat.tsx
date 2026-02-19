@@ -203,46 +203,10 @@ const AiChat = () => {
           <div className="bg-gradient-hero px-6 py-4 flex items-center gap-3">
             <img src={momoAvatar} alt="MOMO" className="w-10 h-10 rounded-full ring-2 ring-background/40" />
             <div>
-              <p className="font-semibold text-primary-foreground text-sm flex items-center gap-2">
-                MOMO AI Assistant
-                <a
-                  href="https://bscscan.com/token/0xd7Deb29ddBB13607375Ce50405A574AC2f7d978d?a=2581"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 bg-background/20 backdrop-blur-sm text-[10px] font-bold px-2 py-0.5 rounded-full text-sunshine hover:bg-background/30 transition-colors"
-                  title="Verified NFA Agent #2581 on BNB Smart Chain"
-                >
-                  <span className="w-1.5 h-1.5 bg-leaf rounded-full" />
-                  NFA #2581
-                </a>
-              </p>
+              <p className="font-semibold text-primary-foreground text-sm">MOMO AI Assistant</p>
               <p className="text-primary-foreground/70 text-xs">Always learning · Always here to help</p>
             </div>
             <span className="ml-auto w-2.5 h-2.5 bg-leaf rounded-full ring-2 ring-background/30 animate-pulse" />
-          </div>
-
-          {/* NFA Verification Banner */}
-          <div className="bg-muted/50 border-b border-border px-5 py-2 flex items-center justify-between gap-2 text-[11px]">
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <span className="font-semibold text-foreground">🛡️ NFA Verified Agent</span>
-              <span>·</span>
-              <a
-                href="https://bscscan.com/tx/0x6f4f08e2caee8e6e934831fc614f01485da4e63b7b63700a5736f850c6cb346d"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline hover:text-foreground transition-colors"
-              >
-                View Mint TX
-              </a>
-            </div>
-            <a
-              href="https://nfa.chatandbuild.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground/70 hover:text-foreground transition-colors"
-            >
-              Powered by NFA
-            </a>
           </div>
 
           {/* Messages */}
