@@ -12,10 +12,10 @@ interface Message {
 }
 
 const suggestions = [
+  { text: "Who is CZ & what is his vision?", icon: Sparkles },
   { text: "What is Giggle Academy?", icon: BookOpen },
-  { text: "BNB Chain for beginners", icon: Sparkles },
-  { text: "Latest Binance updates", icon: TrendingUp },
-  { text: "Sustainable crypto", icon: Leaf },
+  { text: "How does Binance Junior work?", icon: TrendingUp },
+  { text: "BNB Chain for beginners", icon: Leaf },
 ];
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/momo-chat`;
@@ -108,7 +108,7 @@ const AiChat = () => {
     {
       role: "assistant",
       content:
-        "Hi! I'm MOMO 👋\n\nAsk me about:\n• Binance SAFU & trading\n• Giggle Academy learning\n• Building on BNB Chain\n• Sustainable development\n\nKeep learning! 📚✨",
+        "Hey there! I'm **MOMO** 🐵✨\n\nI'm your AI guide for everything in the BNB ecosystem. I have deep knowledge about:\n\n🧑‍💼 **CZ** — His journey from immigrant kid to Binance founder\n🎮 **Giggle Academy** — Free education for 90K+ kids in 156 countries\n👶 **Binance Junior** — Parent-controlled crypto savings for ages 6-17\n⛓️ **BNB Chain** — Building dApps & smart contracts\n\nWhat would you like to explore? 👇",
       time: new Date(),
     },
   ]);
